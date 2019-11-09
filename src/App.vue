@@ -66,7 +66,9 @@
       <div class="content has-text-centered">
         <p>
           <strong>{{ $t("title") }}</strong
-          >. The <a href="#">source code</a> is licensed
+          >. The
+          <a href="https://github.com/Rundik/VodilkaMaker">source code</a> is
+          licensed
           <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
         </p>
       </div>
