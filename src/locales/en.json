@@ -1,0 +1,12 @@
+{
+  "title": "VodilkaMaker",
+  "subtitle": "Create complete vodilka from your screen recordings",
+  "lang": "Language",
+  "editor": {
+    "title": "Crop out cameras",
+    "subtitle": "You should select all the <strong>player's camera</strong> regions here which will be used in the sequence later",
+    "cameras": "Cameras",
+    "addCamera": "Add camera",
+    "cam": "cam"
+  }
+}
