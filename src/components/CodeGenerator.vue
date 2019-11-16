@@ -1,6 +1,13 @@
 <template>
   <div class="content">
-    <code v-if="editor.cams.length > 0">{{ code }}</code>
+    <div class="code" v-if="editor.cams.length > 0">
+      <div class="code-block">
+        <code>{{ code }}</code>
+      </div>
+      <button class="button is-primary" @click="codeToClipboard">
+        {{ $t("copyToClipboard") }}
+      </button>
+    </div>
     <div class="notification is-warning" v-else>{{ $t("code.noCode") }}</div>
   </div>
 </template>
@@ -39,16 +46,24 @@ export default {
       //     `-map [out${i + 1}]${removeBlink} -map 0:a "${cam.title}.mp4"`
       // );
       let outs = ["-c:v libx264 output.mp4"];
-      return `
-        ffmpeg -i "${this.editor.filename}" -i "${
+      return `ffmpeg -i "${this.editor.filename}" -i "${
         this.placer.filename
-      }" -i "borders.png"
+      }" -i "${this.settings.overlay.filename}"
           -filter_complex "${crops.join(";")};${placements.join(";")};[tmp${
         this.placedCams.length
       }][2:v]overlay=0:0" ${outs.join(" ")}`;
+    }
+  },
+  methods: {
+    codeToClipboard() {
+      this.copyToClipboard(this.code);
     }
   }
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.code-block {
+  margin-bottom: 15px;
+}
+</style>

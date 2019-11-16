@@ -15,6 +15,14 @@
             }"
           >
             <div
+              class="overlay"
+              :style="{
+                backgroundImage: settings.overlay.image
+                  ? `url(${settings.overlay.image})`
+                  : ''
+              }"
+            ></div>
+            <div
               class="cam"
               v-for="(cam, i) in placedCams"
               :key="i"
@@ -101,6 +109,9 @@ export default {
     editor() {
       return this.$store.state.editor;
     },
+    settings() {
+      return this.$store.state.settings;
+    },
     placedCams() {
       return this.$store.getters.placedCams;
     },
@@ -165,11 +176,17 @@ export default {
   position: relative;
   overflow: hidden;
   transform-origin: top left;
-
-  flex: 1;
   .cam {
     background-color: #ccc;
     position: absolute;
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
   }
 }
 </style>

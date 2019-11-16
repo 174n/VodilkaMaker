@@ -2,6 +2,8 @@
   "title": "VodilkaMaker",
   "subtitle": "Create complete vodilka from your screen recordings",
   "lang": "Language",
+  "copyToClipboard": "Copy to clipboard",
+  "chooseFile": "Choose a file…",
   "editor": {
     "title": "Crop out cameras",
     "subtitle": "You should select all the player's camera regions here which will be used in the sequence later",
@@ -24,7 +26,19 @@
   },
   "settings": {
     "title": "Settings",
-    "subtitle": "Ajustments for the final video result"
+    "subtitle": "Ajustments for the final video result",
+    "importExport": {
+      "title": "Import/Export",
+      "subtitle": "Import/Export current settings",
+      "importBtn": "Import",
+      "exportBtn": "Export"
+    },
+    "overlay": {
+      "title": "Overlay",
+      "subtitle": "Overlay that goes ons top of the final video",
+      "filename": "Filename",
+      "file": "Overlay image"
+    }
   },
   "code": {
     "title": "Ffmpeg code",

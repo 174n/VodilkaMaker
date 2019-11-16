@@ -9,7 +9,11 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     settings: {
-      removeBlackBlink: false
+      removeBlackBlink: false,
+      overlay: {
+        filename: "borders.png",
+        image: false
+      }
     },
     editor: {
       cams: [],
@@ -44,6 +48,11 @@ export default new Vuex.Store({
     },
     colorizeCam(state, i) {
       state.editor.cams[i].color = globalMixin.methods.getRandomColor();
+    },
+    importState(state, imported) {
+      Object.keys(imported).forEach(k => {
+        state[k] = imported[k];
+      });
     }
   },
 

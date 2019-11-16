@@ -2,10 +2,18 @@
   <div class="canvas" ref="canvas">
     <img ref="image" :src="editor.image" v-if="editor.image" />
     <div class="select-file" v-else>
-      <div class="field">
-        <div class="control">
-          <input type="file" ref="imagefile" />
-        </div>
+      <div class="file">
+        <label class="file-label">
+          <input class="file-input" type="file" ref="imagefile" />
+          <span class="file-cta">
+            <span class="file-icon">
+              📁
+            </span>
+            <span class="file-label">
+              {{ $t("chooseFile") }}
+            </span>
+          </span>
+        </label>
       </div>
       {{ fileInstructions }}
       <code>ffmpeg -i "{{ filename }}" -ss 00:00:10 -vframes 1 out.png</code>
@@ -111,6 +119,9 @@ export default {
 
 .select-file {
   padding: 20px;
+  .file {
+    margin-bottom: 15px;
+  }
 }
 
 .region {

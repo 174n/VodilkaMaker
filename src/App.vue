@@ -89,6 +89,7 @@
 import { EventBus } from "@/event-bus.js";
 import CameraEditor from "@/components/CameraEditor";
 import CameraPlacer from "@/components/CameraPlacer";
+import Settings from "@/components/Settings";
 import CodeGenerator from "@/components/CodeGenerator";
 import "@/styles/flags.css";
 
@@ -97,7 +98,8 @@ export default {
   components: {
     CameraEditor,
     CameraPlacer,
-    CodeGenerator
+    CodeGenerator,
+    Settings
   },
   data() {
     return {
@@ -115,7 +117,7 @@ export default {
         {
           title: "settings.title",
           subtitle: "settings.subtitle",
-          component: false
+          component: Settings
         },
         {
           title: "code.title",
