@@ -8,13 +8,13 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    allowAddCameras: false,
     settings: {
       removeBlackBlink: false
     },
     editor: {
       cams: [],
       filename: "filename.mp4",
+      image: false,
       ratio: 0.7
     },
     placer: {
@@ -44,9 +44,6 @@ export default new Vuex.Store({
     },
     colorizeCam(state, i) {
       state.editor.cams[i].color = globalMixin.methods.getRandomColor();
-    },
-    allowAddCams(state) {
-      state.allowAddCameras = true;
     }
   },
 
@@ -77,6 +74,9 @@ export default new Vuex.Store({
         }px`;
         return c;
       });
+    },
+    exportState: state => {
+      return JSON.stringify(state, null, 2);
     }
   }
 });

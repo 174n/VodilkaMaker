@@ -1,6 +1,6 @@
 <template>
   <div class="canvas" ref="canvas">
-    <img ref="image" :src="image" v-if="image" />
+    <img ref="image" :src="editor.image" v-if="editor.image" />
     <div class="select-file" v-else>
       <div class="field">
         <div class="control">
@@ -30,8 +30,6 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-
 export default {
   props: {
     regions: Array,
@@ -39,20 +37,20 @@ export default {
     filename: String,
     fileInstructions: String
   },
+  computed: {
+    editor() {
+      return this.$deepModel("editor");
+    }
+  },
   data() {
     return {
-      activeRegion: false,
-      image: false
+      activeRegion: false
     };
-  },
-  methods: {
-    ...mapMutations(["allowAddCams"])
   },
   mounted() {
     this.$refs.imagefile.addEventListener("change", async () => {
       const file = this.$refs.imagefile.files[0];
-      this.image = await this.toBase64(file);
-      this.allowAddCams();
+      this.editor.image = await this.toBase64(file);
     });
 
     this.$refs.canvas.addEventListener("mouseup", () => {

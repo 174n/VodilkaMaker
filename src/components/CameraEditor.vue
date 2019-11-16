@@ -36,7 +36,7 @@
             <div class="buttons">
               <a
                 class="button is-primary is-fullwidth"
-                v-if="allowAddCameras"
+                v-if="editor.image"
                 @click="addCam({})"
               >
                 <p>{{ $t("editor.addCamera") }}</p>
@@ -84,9 +84,6 @@ export default {
     ...mapMutations(["addCam", "rmCam", "colorizeCam"])
   },
   computed: {
-    allowAddCameras() {
-      return this.$store.state.allowAddCameras;
-    },
     editor() {
       return this.$deepModel("editor");
     }
