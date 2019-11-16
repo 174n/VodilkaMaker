@@ -5,9 +5,12 @@ import i18n from "./i18n";
 
 import "bulma";
 
-import vueSmoothScroll from "vue2-smooth-scroll";
 import globalMixin from "./globalMixin";
+
+import vueSmoothScroll from "vue2-smooth-scroll";
 Vue.use(vueSmoothScroll);
+import * as VueDeepSet from "vue-deepset";
+Vue.use(VueDeepSet);
 
 Vue.config.productionTip = false;
 

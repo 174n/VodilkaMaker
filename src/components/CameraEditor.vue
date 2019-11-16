@@ -3,9 +3,9 @@
     <div class="columns">
       <div class="column is-two-thirds">
         <RegionCapturer
-          :regions="cams"
-          :filename="camsFilename"
-          :ratio="camsRatio"
+          :regions="editor.cams"
+          :filename="editor.filename"
+          :ratio="editor.ratio"
           ref="capturer"
         />
       </div>
@@ -18,7 +18,7 @@
             <div class="field">
               <label class="label">{{ $t("editor.filename") }}</label>
               <div class="control inline">
-                <input class="input" type="text" v-model="camsFilename" />
+                <input class="input" type="text" v-model="editor.filename" />
               </div>
             </div>
 
@@ -29,7 +29,7 @@
                   class="input"
                   type="number"
                   step="0.1"
-                  v-model.number="camsRatio"
+                  v-model.number="editor.ratio"
                 />
               </div>
             </div>
@@ -43,7 +43,7 @@
               </a>
             </div>
             <div class="cameras">
-              <div class="camera" v-for="(cam, i) in cams" :key="i">
+              <div class="camera" v-for="(cam, i) in editor.cams" :key="i">
                 <div class="inline">
                   <span
                     class="bd-color"
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
+import { mapMutations } from "vuex";
 import RegionCapturer from "@/components/RegionCapturer";
 
 export default {
@@ -84,22 +84,11 @@ export default {
     ...mapMutations(["addCam", "rmCam", "colorizeCam"])
   },
   computed: {
-    ...mapState(["cams", "allowAddCameras"]),
-    camsFilename: {
-      get() {
-        return this.$store.state.camsFilename;
-      },
-      set(filename) {
-        this.$store.commit("changeCamsFilename", filename);
-      }
+    allowAddCameras() {
+      return this.$store.state.allowAddCameras;
     },
-    camsRatio: {
-      get() {
-        return this.$store.state.camsRatio;
-      },
-      set(filename) {
-        this.$store.commit("changeCamsRatio", filename);
-      }
+    editor() {
+      return this.$deepModel("editor");
     }
   }
 };

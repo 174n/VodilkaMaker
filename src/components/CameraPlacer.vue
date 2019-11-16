@@ -1,22 +1,22 @@
 <template>
   <div class="placer">
-    <div class="columns" v-if="cams && cams.length > 0">
+    <div class="columns" v-if="editor.cams && editor.cams.length > 0">
       <div class="column is-two-thirds" ref="wrapper">
         <div
           class="canvas-wrapper"
-          :style="{ height: `${canvasScale * canvHeight}px` }"
+          :style="{ height: `${placer.canvasScale * placer.canvHeight}px` }"
         >
           <div
             class="canvas"
             :style="{
-              width: `${canvWidth}px`,
-              height: `${canvHeight}px`,
-              transform: `scale(${canvasScale})`
+              width: `${placer.canvWidth}px`,
+              height: `${placer.canvHeight}px`,
+              transform: `scale(${placer.canvasScale})`
             }"
           >
             <div
               class="cam"
-              v-for="(cam, i) in adjustedCams"
+              v-for="(cam, i) in placedCams"
               :key="i"
               :style="{
                 width: cam.t_width,
@@ -37,7 +37,7 @@
             <div class="field">
               <label class="label">{{ $t("placer.filename") }}</label>
               <div class="control inline">
-                <input class="input" type="text" v-model="filename" />
+                <input class="input" type="text" v-model="placer.filename" />
               </div>
             </div>
             <div class="field">
@@ -47,7 +47,7 @@
                   class="input"
                   type="number"
                   step="10"
-                  v-model.number="canvWidth"
+                  v-model.number="placer.canvWidth"
                 />
               </div>
             </div>
@@ -58,7 +58,7 @@
                   class="input"
                   type="number"
                   step="10"
-                  v-model.number="canvHeight"
+                  v-model.number="placer.canvHeight"
                 />
               </div>
             </div>
@@ -69,14 +69,18 @@
                   class="input"
                   type="number"
                   step="10"
-                  v-model.number="size"
+                  v-model.number="placer.size"
                 />
               </div>
             </div>
             <div class="field">
               <label class="label">{{ $t("placer.padding") }}</label>
               <div class="control inline">
-                <input class="input" type="number" v-model.number="padding" />
+                <input
+                  class="input"
+                  type="number"
+                  v-model.number="placer.padding"
+                />
               </div>
             </div>
           </div>
@@ -90,39 +94,41 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { EventBus } from "@/event-bus.js";
+import { EventBus } from "@/event-bus";
 
 export default {
-  data() {
-    return {
-      filename: "main_cam.mp4",
-      canvWidth: 1920,
-      canvHeight: 1080,
-      canvasScale: 0.1,
-      size: 400,
-      padding: 60
-    };
-  },
   computed: {
-    ...mapState(["cams", "camsRatio", "settings"]),
+    editor() {
+      return this.$store.state.editor;
+    },
+    placedCams() {
+      return this.$store.getters.placedCams;
+    },
+    placer() {
+      return this.$deepModel("placer");
+    },
     adjustedCams() {
-      const cams = this.cams;
+      const cams = this.editor.cams;
       const lscc = Math.round(cams.length / 2); // left side cams count
-      const width = this.size;
-      const height = this.size * this.camsRatio;
+      const width = this.placer.size;
+      const height = this.placer.size * this.editor.ratio;
       const innerPadding =
-        (this.canvHeight - lscc * height - 2 * this.padding) / (lscc - 1);
+        (this.placer.canvHeight - lscc * height - 2 * this.placer.padding) /
+        (lscc - 1);
       return cams.map((c, i) => {
         c.t_width = `${width}px`;
         c.t_height = `${height}px`;
         c.t_x = `${
-          i >= lscc ? this.canvWidth - width - this.padding : this.padding
+          i >= lscc
+            ? this.placer.canvWidth - width - this.placer.padding
+            : this.placer.padding
         }px`;
         c.t_y = `${
           i >= lscc
-            ? (i - lscc) * height + innerPadding * (i - lscc) + this.padding
-            : i * height + innerPadding * i + this.padding
+            ? (i - lscc) * height +
+              innerPadding * (i - lscc) +
+              this.placer.padding
+            : i * height + innerPadding * i + this.placer.padding
         }px`;
         return c;
       });
@@ -132,31 +138,18 @@ export default {
     async setCanvasScale() {
       await this.$nextTick();
       if (!this.$refs.wrapper) return;
-      let width = this.$refs.wrapper.getBoundingClientRect().width - 24;
-      this.canvasScale = width / this.canvWidth;
-    },
-    answerInformationRequest() {
-      EventBus.$emit("camera-placer-answers", {
-        adjustedCams: this.adjustedCams,
-        size: this.size,
-        padding: this.padding,
-        filename: this.filename
-      });
+      let width = this.$refs.wrapper.getBoundingClientRect().width - 24; // 24 = 12 * 2  (padding)
+      this.placer.canvasScale = width / this.placer.canvWidth;
     }
   },
   mounted() {
     this.setCanvasScale();
     EventBus.$on("tab-changed", this.setCanvasScale);
-    EventBus.$on("need-info-from-camera-placer", this.answerInformationRequest);
     window.addEventListener("resize", this.setCanvasScale);
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.setCanvasScale);
     EventBus.$off("tab-changed", this.setCanvasScale);
-    EventBus.$off(
-      "need-info-from-camera-placer",
-      this.answerInformationRequest
-    );
   }
 };
 </script>

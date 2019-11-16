@@ -30,3 +30,11 @@ export default {
     }
   }
 };
+
+export function mapDeepModels(models) {
+  return models.map(m => {
+    return function formData() {
+      return this.$deepModel(m);
+    };
+  });
+}
