@@ -2,6 +2,10 @@
 
 Create complete vodilka from your screen recordings
 
+[DEMO](https://rundik.github.io/VodilkaMaker/)
+
+![Demo gif](demo.gif)
+
 ## Project setup
 ```
 npm install
