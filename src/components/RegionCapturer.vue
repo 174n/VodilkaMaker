@@ -7,6 +7,7 @@
           <input type="file" ref="imagefile" />
         </div>
       </div>
+      {{ fileInstructions }}
       <code>ffmpeg -i "{{ filename }}" -ss 00:00:10 -vframes 1 out.png</code>
     </div>
     <div
@@ -33,7 +34,8 @@ export default {
   props: {
     regions: Array,
     ratio: Number,
-    filename: String
+    filename: String,
+    fileInstructions: String
   },
   data() {
     return {
@@ -59,7 +61,13 @@ export default {
         const reg = this.regions[this.activeRegion];
         reg.x = e.clientX - reg.initialX;
         reg.y = e.clientY - reg.initialY;
-        reg.x = reg.x >= 0 ? reg.x : 0;
+        const image = this.$refs.image;
+        reg.x =
+          reg.x >= 0
+            ? reg.x
+            : reg.x - reg.size >= image.width
+            ? image.width
+            : 0;
         reg.y = reg.y >= 0 ? reg.y : 0;
       }, 30)
     );
@@ -68,12 +76,14 @@ export default {
     regions() {
       this.$nextTick(() => {
         const elem = this.$refs.regions.slice(-1)[0];
-        elem.addEventListener("mousedown", e => {
-          const reg = this.regions[e.target.getAttribute("data-id")];
-          reg.initialX = e.clientX - reg.x;
-          reg.initialY = e.clientY - reg.y;
-          this.activeRegion = e.target.getAttribute("data-id");
-        });
+        if (elem) {
+          elem.addEventListener("mousedown", e => {
+            const reg = this.regions[e.target.getAttribute("data-id")];
+            reg.initialX = e.clientX - reg.x;
+            reg.initialY = e.clientY - reg.y;
+            this.activeRegion = e.target.getAttribute("data-id");
+          });
+        }
       });
     }
   }

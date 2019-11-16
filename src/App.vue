@@ -42,11 +42,13 @@
       </div>
 
       <div class="hero-foot">
-        <nav class="tabs">
+        <nav class="tabs is-boxed">
           <div class="container">
             <ul>
               <li v-for="header in headers" :key="header.slug">
-                <a :href="`#${header.slug}`">{{ header.title }}</a>
+                <a :href="`#${header.slug}`" v-smooth-scroll>{{
+                  header.title
+                }}</a>
               </li>
             </ul>
           </div>
@@ -57,8 +59,16 @@
     <section class="section">
       <div class="container">
         <h1 class="title" id="crop-out-cameras">{{ $t("editor.title") }}</h1>
-        <h2 class="subtitle" v-html="$t('editor.subtitle')"></h2>
+        <h2 class="subtitle">{{ $t("editor.subtitle") }}</h2>
         <CameraEditor />
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h1 class="title" id="place-cameras">{{ $t("placer.title") }}</h1>
+        <h2 class="subtitle">{{ $t("placer.subtitle") }}</h2>
+        <CameraPlacer />
       </div>
     </section>
 
@@ -78,12 +88,14 @@
 
 <script>
 import CameraEditor from "@/components/CameraEditor";
+import CameraPlacer from "@/components/CameraPlacer";
 import "@/styles/flags.css";
 
 export default {
   name: "app",
   components: {
-    CameraEditor
+    CameraEditor,
+    CameraPlacer
   },
   data() {
     return {
@@ -120,5 +132,20 @@ export default {
 
 .footer {
   margin-top: 4rem;
+}
+
+.inline {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  > * {
+    margin-right: 8px;
+  }
+  > :last-child {
+    margin-right: 0;
+  }
 }
 </style>

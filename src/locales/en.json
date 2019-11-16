@@ -4,9 +4,13 @@
   "lang": "Language",
   "editor": {
     "title": "Crop out cameras",
-    "subtitle": "You should select all the <strong>player's camera</strong> regions here which will be used in the sequence later",
+    "subtitle": "You should select all the player's camera regions here which will be used in the sequence later",
     "cameras": "Cameras",
     "addCamera": "Add camera",
     "cam": "cam"
+  },
+  "placer": {
+    "title": "Final cameras placement",
+    "subtitle": "Choose the locations for the cameras to be placed"
   }
 }
