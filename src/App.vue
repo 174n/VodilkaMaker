@@ -38,6 +38,11 @@
         <div class="container has-text-centered">
           <h1 class="title">{{ $t("title") }}</h1>
           <h2 class="subtitle">{{ $t("subtitle") }}</h2>
+          <div class="badges">
+            <a v-for="badge in badges" :key="badge.link" :href="badge.link">
+              <img :src="badge.img" :alt="badge.alt" />
+            </a>
+          </div>
         </div>
       </div>
 
@@ -125,7 +130,39 @@ export default {
           component: CodeGenerator
         }
       ],
-      active: 0
+      active: 0,
+      badges: [
+        {
+          img: "http://hits.dwyl.io/Rundik/VodilkaMaker.svg",
+          link: "https://github.com/Rundik/VodilkaMaker",
+          alt: "HitCount"
+        },
+        {
+          img:
+            "https://img.shields.io/github/stars/Rundik/VodilkaMaker.svg?style=flat-square",
+          link: "https://github.com/Rundik/VodilkaMaker/stargazers",
+          alt: "GitHub stargazers"
+        },
+        {
+          img:
+            "https://img.shields.io/github/issues/Rundik/VodilkaMaker.svg?style=flat-square",
+          link: "https://github.com/Rundik/VodilkaMaker/issues",
+          alt: "GitHub issues"
+        },
+        {
+          img:
+            "https://snyk.io/test/github/Rundik/VodilkaMaker/badge.svg?style=flat-square",
+          link: "https://snyk.io/test/github/Rundik/VodilkaMaker",
+          alt: "Known Vulnerabilities"
+        },
+        {
+          img:
+            "https://img.shields.io/david/Rundik/VodilkaMaker?style=flat-square",
+          link:
+            "https://github.com/Rundik/VodilkaMaker/blob/master/package.json",
+          alt: "Dependencies"
+        }
+      ]
     };
   },
   methods: {
@@ -149,6 +186,16 @@ export default {
   min-height: 100vh;
   padding-bottom: 200px;
   position: relative;
+}
+
+.badges a {
+  margin-right: 5px;
+  img {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  }
+  &:last-child {
+    margin-right: 0;
+  }
 }
 
 .footer {
