@@ -8,12 +8,18 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   // State
   state: {
-    cams: []
+    cams: [],
+    camsFilename: "filename.mp4",
+    camsRatio: 0.7,
+    allowAddCameras: false,
+    settings: {
+      removeBlackBlink: false
+    }
   },
 
   // Mutations
   mutations: {
-    addCam(state, { title, x = 0, y = 0, size = 400, color }) {
+    addCam(state, { title = false, x = 0, y = 0, size = 400, color }) {
       state.cams.push({
         title: title || `${i18n.t("editor.cam")}_${state.cams.length}`,
         x,
@@ -28,6 +34,15 @@ export default new Vuex.Store({
     },
     colorizeCam(state, i) {
       state.cams[i].color = globalMixin.methods.getRandomColor();
+    },
+    changeCamsFilename(state, filename) {
+      state.camsFilename = filename;
+    },
+    changeCamsRatio(state, ratio) {
+      state.camsRatio = ratio;
+    },
+    allowAddCams(state) {
+      state.allowAddCameras = true;
     }
   },
 

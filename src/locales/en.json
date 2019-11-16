@@ -7,10 +7,28 @@
     "subtitle": "You should select all the player's camera regions here which will be used in the sequence later",
     "cameras": "Cameras",
     "addCamera": "Add camera",
-    "cam": "cam"
+    "cam": "cam",
+    "filename": "Filename of player's cameras footage",
+    "ratio": "Camera aspect ratio"
   },
   "placer": {
     "title": "Final cameras placement",
-    "subtitle": "Choose the locations for the cameras to be placed"
+    "subtitle": "Choose the locations for the cameras to be placed",
+    "settings": "Settings",
+    "camSize": "Cam size",
+    "padding": "Padding",
+    "canvWidth": "Canvas width",
+    "canvHeight": "Canvas height",
+    "filename": "Main camera filename",
+    "noCams": "You can't configure cameras placement because no cameras specified"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Ajustments for the final video result"
+  },
+  "code": {
+    "title": "Ffmpeg code",
+    "subtitle": "Code generated for the ffmpeg",
+    "noCode": "No code is generated because no cameras specified"
   }
 }

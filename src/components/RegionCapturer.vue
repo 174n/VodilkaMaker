@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   props: {
     regions: Array,
@@ -43,10 +45,14 @@ export default {
       image: false
     };
   },
+  methods: {
+    ...mapMutations(["allowAddCams"])
+  },
   mounted() {
     this.$refs.imagefile.addEventListener("change", async () => {
       const file = this.$refs.imagefile.files[0];
       this.image = await this.toBase64(file);
+      this.allowAddCams();
     });
 
     this.$refs.canvas.addEventListener("mouseup", () => {

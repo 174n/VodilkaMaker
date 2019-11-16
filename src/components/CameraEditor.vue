@@ -2,7 +2,12 @@
   <div class="editor">
     <div class="columns">
       <div class="column is-two-thirds">
-        <RegionCapturer :regions="cams" :filename="filename" :ratio="ratio" ref="capturer" />
+        <RegionCapturer
+          :regions="cams"
+          :filename="camsFilename"
+          :ratio="camsRatio"
+          ref="capturer"
+        />
       </div>
       <div class="column">
         <article class="message">
@@ -11,20 +16,40 @@
           </div>
           <div class="message-body">
             <div class="field">
+              <label class="label">{{ $t("editor.filename") }}</label>
               <div class="control inline">
-                <input class="input" type="text" v-model="filename" />
-                <input class="input" type="number" step="0.1" v-model.number="ratio" />
+                <input class="input" type="text" v-model="camsFilename" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">{{ $t("editor.ratio") }}</label>
+              <div class="control inline">
+                <input
+                  class="input"
+                  type="number"
+                  step="0.1"
+                  v-model.number="camsRatio"
+                />
               </div>
             </div>
             <div class="buttons">
-              <a class="button is-primary is-fullwidth" @click="addCam">
+              <a
+                class="button is-primary is-fullwidth"
+                v-if="allowAddCameras"
+                @click="addCam({})"
+              >
                 <p>{{ $t("editor.addCamera") }}</p>
               </a>
             </div>
             <div class="cameras">
               <div class="camera" v-for="(cam, i) in cams" :key="i">
                 <div class="inline">
-                  <span class="bd-color" :style="{ background: cam.color }" @click="colorizeCam(i)"></span>
+                  <span
+                    class="bd-color"
+                    :style="{ background: cam.color }"
+                    @click="colorizeCam(i)"
+                  ></span>
                   <input class="input" type="text" v-model="cam.title" />
                   <button class="button" @click="rmCam(i)">✖️</button>
                 </div>
@@ -39,12 +64,11 @@
         </article>
       </div>
     </div>
-    <code v-if="cams.length > 0">{{ code }}</code>
   </div>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 import RegionCapturer from "@/components/RegionCapturer";
 
 export default {
@@ -53,8 +77,6 @@ export default {
   },
   data() {
     return {
-      filename: "filename.mp4",
-      ratio: 0.7,
       activeCam: false
     };
   },
@@ -62,22 +84,22 @@ export default {
     ...mapMutations(["addCam", "rmCam", "colorizeCam"])
   },
   computed: {
-    cams() {
-      return this.$store.state.cams;
+    ...mapState(["cams", "allowAddCameras"]),
+    camsFilename: {
+      get() {
+        return this.$store.state.camsFilename;
+      },
+      set(filename) {
+        this.$store.commit("changeCamsFilename", filename);
+      }
     },
-    code() {
-      let crops = this.cams.map(
-        (cam, i) =>
-          `[0:v]crop=${cam.size}:${Math.floor(cam.size * this.ratio)}:${
-            cam.x
-          }:${cam.y}[out${i + 1}]`
-      );
-      let outs = this.cams.map(
-        (cam, i) => `-map [out${i + 1}] -map 0:a "${cam.title}.mp4"`
-      );
-      return `ffmpeg -i "${this.filename}" -filter_complex "${crops.join(
-        ";"
-      )}" ${outs.join(" ")}`;
+    camsRatio: {
+      get() {
+        return this.$store.state.camsRatio;
+      },
+      set(filename) {
+        this.$store.commit("changeCamsRatio", filename);
+      }
     }
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <section class="hero is-primary is-medium">
+    <section class="hero is-primary">
       <div class="hero-head">
         <nav class="navbar is-primary">
           <div class="container">
@@ -45,10 +45,12 @@
         <nav class="tabs is-boxed">
           <div class="container">
             <ul>
-              <li v-for="header in headers" :key="header.slug">
-                <a :href="`#${header.slug}`" v-smooth-scroll>{{
-                  header.title
-                }}</a>
+              <li
+                v-for="(tab, i) in tabs"
+                :key="i"
+                :class="{ 'is-active': active === i }"
+              >
+                <a @click="changeTab(i)" v-smooth-scroll>{{ $t(tab.title) }}</a>
               </li>
             </ul>
           </div>
@@ -56,19 +58,16 @@
       </div>
     </section>
 
-    <section class="section">
+    <section
+      class="section"
+      v-for="(tab, i) in tabs"
+      :key="i"
+      v-show="active === i"
+    >
       <div class="container">
-        <h1 class="title" id="crop-out-cameras">{{ $t("editor.title") }}</h1>
-        <h2 class="subtitle">{{ $t("editor.subtitle") }}</h2>
-        <CameraEditor />
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <h1 class="title" id="place-cameras">{{ $t("placer.title") }}</h1>
-        <h2 class="subtitle">{{ $t("placer.subtitle") }}</h2>
-        <CameraPlacer />
+        <h1 class="title">{{ $t(tab.title) }}</h1>
+        <h2 class="subtitle">{{ $t(tab.subtitle) }}</h2>
+        <component v-if="tab.component" :is="tab.component" />
       </div>
     </section>
 
@@ -87,51 +86,80 @@
 </template>
 
 <script>
+import { EventBus } from "@/event-bus.js";
 import CameraEditor from "@/components/CameraEditor";
 import CameraPlacer from "@/components/CameraPlacer";
+import CodeGenerator from "@/components/CodeGenerator";
 import "@/styles/flags.css";
 
 export default {
   name: "app",
   components: {
     CameraEditor,
-    CameraPlacer
+    CameraPlacer,
+    CodeGenerator
   },
   data() {
     return {
-      headers: []
+      tabs: [
+        {
+          title: "editor.title",
+          subtitle: "editor.subtitle",
+          component: CameraEditor
+        },
+        {
+          title: "placer.title",
+          subtitle: "placer.subtitle",
+          component: CameraPlacer
+        },
+        {
+          title: "settings.title",
+          subtitle: "settings.subtitle",
+          component: false
+        },
+        {
+          title: "code.title",
+          subtitle: "code.subtitle",
+          component: CodeGenerator
+        }
+      ],
+      active: 0
     };
   },
   methods: {
     changeLocale(locale) {
       this.$i18n.locale = locale;
-      this.initHeaders();
     },
-    initHeaders() {
-      this.$nextTick(() => {
-        this.headers = [...document.querySelectorAll(".section h1")].map(h => ({
-          title: h.innerText,
-          slug: h.getAttribute("id")
-        }));
-      });
+    changeTab(i) {
+      EventBus.$emit("tab-changed");
+      this.active = i;
     }
   },
   created() {
-    this.initHeaders();
+    const lang = window.navigator.userLanguage || window.navigator.language;
+    if (["ru", "en"].indexOf(lang) !== -1) this.changeLocale(lang);
   }
 };
 </script>
 
 <style lang="scss">
+#app {
+  min-height: 100vh;
+  padding-bottom: 200px;
+  position: relative;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
 .navbar-dropdown .navbar-item {
   color: #333 !important;
   > span {
     margin-right: 10px;
   }
-}
-
-.footer {
-  margin-top: 4rem;
 }
 
 .inline {
