@@ -16,13 +16,6 @@
           </div>
           <div class="message-body">
             <div class="field">
-              <label class="label">{{ $t("editor.filename") }}</label>
-              <div class="control inline">
-                <input class="input" type="text" v-model="editor.filename" />
-              </div>
-            </div>
-
-            <div class="field">
               <label class="label">{{ $t("editor.ratio") }}</label>
               <div class="control inline">
                 <input

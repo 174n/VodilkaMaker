@@ -1,7 +1,7 @@
 <template>
   <div class="settings">
     <div class="tile is-ancestor">
-      <div class="tile is-parent is-3">
+      <div class="tile is-parent is-vertical is-3">
         <article class="tile is-child box">
           <p class="title">{{ $t("settings.importExport.title") }}</p>
           <p class="subtitle">{{ $t("settings.importExport.subtitle") }}</p>
@@ -10,7 +10,12 @@
               <div class="level-item">
                 <div class="file">
                   <label class="file-label">
-                    <input class="file-input" ref="importFile" type="file" />
+                    <input
+                      class="file-input"
+                      ref="importFile"
+                      type="file"
+                      accept=".json,application/json"
+                    />
                     <span class="file-cta">
                       <span class="file-label">{{
                         $t("settings.importExport.importBtn")
@@ -27,12 +32,22 @@
             </nav>
           </div>
         </article>
-      </div>
-      <div class="tile is-parent is-5">
         <article class="tile is-child box">
-          <p class="title">{{ $t("settings.overlay.title") }}</p>
-          <p class="subtitle">{{ $t("settings.overlay.subtitle") }}</p>
+          <p class="title">{{ $t("settings.filenames.title") }}</p>
+          <p class="subtitle">{{ $t("settings.filenames.subtitle") }}</p>
           <div class="content">
+            <div class="field">
+              <label class="label">{{ $t("editor.filename") }}</label>
+              <div class="control inline">
+                <input class="input" type="text" v-model="editor.filename" />
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">{{ $t("placer.filename") }}</label>
+              <div class="control inline">
+                <input class="input" type="text" v-model="placer.filename" />
+              </div>
+            </div>
             <div class="field">
               <label class="label">{{ $t("settings.overlay.filename") }}</label>
               <div class="control inline">
@@ -43,9 +58,17 @@
                 />
               </div>
             </div>
+          </div>
+        </article>
+      </div>
+      <div class="tile is-parent is-vertical">
+        <article class="tile is-child box">
+          <p class="title">{{ $t("settings.overlay.title") }}</p>
+          <p class="subtitle">{{ $t("settings.overlay.subtitle") }}</p>
+          <div class="content">
             <div class="field">
               <label class="label">{{ $t("settings.overlay.file") }}</label>
-              <label class="file-label" v-if="!settings.overlay.image">
+              <label class="file-label">
                 <input class="file-input" type="file" ref="overlayImage" />
                 <span class="file-cta">
                   <span class="file-icon">
@@ -60,11 +83,64 @@
                 class="overlay"
                 :src="settings.overlay.image"
                 alt="overlay"
-                v-else
+                v-if="settings.overlay.image"
               />
             </div>
           </div>
         </article>
+        <article class="tile is-child"></article>
+        <article class="tile is-child"></article>
+      </div>
+      <div class="tile is-parent is-vertical">
+        <article class="tile is-child box">
+          <p class="title">{{ $t("settings.cut.title") }}</p>
+          <p class="subtitle">{{ $t("settings.cut.subtitle") }}</p>
+          <div class="content">
+            <div class="field">
+              <label class="label">{{ $t("settings.cut.main") }}</label>
+              <div class="field is-grouped">
+                <p class="control is-expanded">
+                  <input
+                    class="input"
+                    type="text"
+                    v-model="settings.cut.main.start"
+                    :placeholder="$t('settings.cut.startTime')"
+                  />
+                </p>
+                <p class="control is-expanded">
+                  <input
+                    class="input"
+                    type="text"
+                    v-model="settings.cut.main.end"
+                    :placeholder="$t('settings.cut.endTime')"
+                  />
+                </p>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">{{ $t("settings.cut.cams") }}</label>
+              <div class="field is-grouped">
+                <p class="control is-expanded">
+                  <input
+                    class="input"
+                    type="text"
+                    v-model="settings.cut.cams.start"
+                    :placeholder="$t('settings.cut.startTime')"
+                  />
+                </p>
+                <p class="control is-expanded">
+                  <input
+                    class="input"
+                    type="text"
+                    v-model="settings.cut.cams.end"
+                    :placeholder="$t('settings.cut.endTime')"
+                  />
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="tile is-child"></article>
       </div>
     </div>
   </div>
@@ -77,6 +153,12 @@ export default {
     },
     exportState() {
       return this.$store.getters.exportState;
+    },
+    editor() {
+      return this.$deepModel("editor");
+    },
+    placer() {
+      return this.$deepModel("placer");
     }
   },
   methods: {
@@ -100,6 +182,7 @@ export default {
       }
     },
     async addOverlayImage() {
+      this.settings.overlay.image = null;
       const file = this.$refs.overlayImage.files[0];
       this.settings.overlay.image = await this.toBase64(file);
     }
@@ -117,5 +200,6 @@ export default {
 <style scoped lang="scss">
 .overlay {
   max-width: 100%;
+  margin-top: 5px;
 }
 </style>

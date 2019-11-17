@@ -43,12 +43,6 @@
           </div>
           <div class="message-body">
             <div class="field">
-              <label class="label">{{ $t("placer.filename") }}</label>
-              <div class="control inline">
-                <input class="input" type="text" v-model="placer.filename" />
-              </div>
-            </div>
-            <div class="field">
               <label class="label">{{ $t("placer.canvWidth") }}</label>
               <div class="control inline">
                 <input

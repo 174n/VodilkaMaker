@@ -13,6 +13,20 @@ export default new Vuex.Store({
       overlay: {
         filename: "borders.png",
         image: false
+      },
+      cut: {
+        main: {
+          start: "",
+          to: ""
+        },
+        cams: {
+          start: "",
+          to: ""
+        },
+        concat: {
+          main: [],
+          cams: []
+        }
       }
     },
     editor: {

@@ -96,6 +96,7 @@ import CameraEditor from "@/components/CameraEditor";
 import CameraPlacer from "@/components/CameraPlacer";
 import Settings from "@/components/Settings";
 import CodeGenerator from "@/components/CodeGenerator";
+import VideoTimeCalibration from "@/components/VideoTimeCalibration";
 import "@/styles/flags.css";
 
 export default {
@@ -104,7 +105,8 @@ export default {
     CameraEditor,
     CameraPlacer,
     CodeGenerator,
-    Settings
+    Settings,
+    VideoTimeCalibration
   },
   data() {
     return {
@@ -118,6 +120,11 @@ export default {
           title: "placer.title",
           subtitle: "placer.subtitle",
           component: CameraPlacer
+        },
+        {
+          title: "videoTime.title",
+          subtitle: "videoTime.subtitle",
+          component: VideoTimeCalibration
         },
         {
           title: "settings.title",

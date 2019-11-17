@@ -10,7 +10,7 @@
     "cameras": "Cameras",
     "addCamera": "Add camera",
     "cam": "cam",
-    "filename": "Filename of player's cameras footage",
+    "filename": "Players' cameras footage",
     "ratio": "Camera aspect ratio"
   },
   "placer": {
@@ -36,13 +36,29 @@
     "overlay": {
       "title": "Overlay",
       "subtitle": "Overlay that goes ons top of the final video",
-      "filename": "Filename",
+      "filename": "Overlay's filename",
       "file": "Overlay image"
+    },
+    "cut": {
+      "title": "Cut inputs",
+      "subtitle": "Set start and end time of input files",
+      "startTime": "Start time",
+      "endTime": "End time",
+      "main": "Main camera",
+      "cams": "Players' cameras"
+    },
+    "filenames": {
+      "title": "Set filenames",
+      "subtitle": "Set all the filenames here"
     }
   },
   "code": {
     "title": "Ffmpeg code",
     "subtitle": "Code generated for the ffmpeg",
     "noCode": "No code is generated because no cameras specified"
+  },
+  "videoTime": {
+    "title": "Video time calibration",
+    "subtitle": "Find start and end times here"
   }
 }

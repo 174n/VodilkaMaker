@@ -22,7 +22,7 @@ export default {
     },
     code() {
       if (!this.placedCams) return false;
-      let crops = this.placedCams.map(
+      const crops = this.placedCams.map(
         (c, i) =>
           `[0:v]crop=${c.size}:${Math.floor(c.size * this.editor.ratio)}:${
             c.x
@@ -30,7 +30,7 @@ export default {
             c.t_height.slice(0, -2)
           )}[out${i + 1}]`
       );
-      let placements = this.placedCams.map(
+      const placements = this.placedCams.map(
         (c, i) =>
           `[${i === 0 ? "1:v" : "tmp" + i}][out${i +
             1}] overlay=shortest=1:x=${c.t_x.slice(0, -2)}:y=${c.t_y.slice(
@@ -45,10 +45,20 @@ export default {
       //   (cam, i) =>
       //     `-map [out${i + 1}]${removeBlink} -map 0:a "${cam.title}.mp4"`
       // );
-      let outs = ["-c:v libx264 output.mp4"];
-      return `ffmpeg -i "${this.editor.filename}" -i "${
-        this.placer.filename
-      }" -i "${this.settings.overlay.filename}"
+      const outs = ["-c:v libx264 output.mp4"];
+      const cutMain = this.settings.cut.main;
+      const cutCams = this.settings.cut.cams;
+      const mainTimes =
+        (cutMain.start ? `-ss ${cutMain.start}` : "") +
+        (cutMain.end ? ` -to ${cutMain.end}` : "");
+      const camsTimes =
+        (cutCams.start ? `-ss ${cutCams.start}` : "") +
+        (cutCams.end ? ` -to ${cutCams.end}` : "");
+      return `ffmpeg ${camsTimes} -i "${
+        this.editor.filename
+      }" ${mainTimes} -i "${this.placer.filename}" -i "${
+        this.settings.overlay.filename
+      }"
           -filter_complex "${crops.join(";")};${placements.join(";")};[tmp${
         this.placedCams.length
       }][2:v]overlay=0:0" ${outs.join(" ")}`;
