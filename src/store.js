@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import globalMixin from "./globalMixin";
 import i18n from "./i18n";
 import * as VueDeepSet from "vue-deepset";
+import { mergeDeep } from "@/globalMixin";
 
 Vue.use(Vuex);
 
@@ -68,9 +69,7 @@ export default new Vuex.Store({
       state.editor.cams[i].color = globalMixin.methods.getRandomColor();
     },
     importState(state, imported) {
-      Object.keys(imported).forEach(k => {
-        state[k] = imported[k];
-      });
+      mergeDeep(state, imported);
     }
   },
 
