@@ -88,7 +88,26 @@
             </div>
           </div>
         </article>
-        <article class="tile is-child"></article>
+        <article class="tile is-child">
+          <p class="title">{{ $t("settings.intro.title") }}</p>
+          <p class="subtitle">{{ $t("settings.intro.subtitle") }}</p>
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" v-model="settings.into.enable" />
+              {{ $t("settings.intro.enable") }}
+            </label>
+          </div>
+          <div class="field" v-if="settings.intro.enable">
+            <label class="label">{{ $t("settings.intro.filename") }}</label>
+            <div class="control inline">
+              <input
+                class="input"
+                type="text"
+                v-model="settings.intro.filename"
+              />
+            </div>
+          </div>
+        </article>
         <article class="tile is-child"></article>
       </div>
       <div class="tile is-parent is-vertical">

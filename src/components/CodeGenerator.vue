@@ -22,6 +22,13 @@ export default {
     },
     code() {
       if (!this.placedCams) return false;
+      const introIn = this.settings.intro.enable
+        ? `-i "${this.settings.intro.filename}"`
+        : "";
+      const introOut = this.settings.intro.enable
+        ? `[pre];[3:v][pre]concat=n=2:v=1`
+        : "";
+      const inputs = `${camsTimes} -i "${this.editor.filename}" ${mainTimes} -i "${this.placer.filename}" -i "${this.settings.overlay.filename}" ${introIn}`;
       const crops = this.placedCams.map(
         (c, i) =>
           `[0:v]crop=${c.size}:${Math.floor(c.size * this.editor.ratio)}:${
@@ -54,14 +61,10 @@ export default {
       const camsTimes =
         (cutCams.start ? `-ss ${cutCams.start}` : "") +
         (cutCams.end ? ` -to ${cutCams.end}` : "");
-      return `ffmpeg ${camsTimes} -i "${
-        this.editor.filename
-      }" ${mainTimes} -i "${this.placer.filename}" -i "${
-        this.settings.overlay.filename
-      }"
+      return `ffmpeg ${inputs}
           -filter_complex "${crops.join(";")};${placements.join(";")};[tmp${
         this.placedCams.length
-      }][2:v]overlay=0:0" ${outs.join(" ")}`;
+      }][2:v]overlay=0:0${introOut}" ${outs.join(" ")}`;
     }
   },
   methods: {

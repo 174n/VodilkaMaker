@@ -27,6 +27,10 @@ export default new Vuex.Store({
           main: [],
           cams: []
         }
+      },
+      intro: {
+        enable: false,
+        filename: ""
       }
     },
     editor: {

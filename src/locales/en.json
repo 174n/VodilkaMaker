@@ -47,6 +47,10 @@
       "main": "Main camera",
       "cams": "Players' cameras"
     },
+    "intro": {
+      "enable": "Insert intro",
+      "filename": "Intro filename"
+    },
     "filenames": {
       "title": "Set filenames",
       "subtitle": "Set all the filenames here"
