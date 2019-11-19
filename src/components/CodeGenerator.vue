@@ -28,7 +28,6 @@ export default {
       const introOut = this.settings.intro.enable
         ? `[pre];[3:v][pre]concat=n=2:v=1`
         : "";
-      const inputs = `${camsTimes} -i "${this.editor.filename}" ${mainTimes} -i "${this.placer.filename}" -i "${this.settings.overlay.filename}" ${introIn}`;
       const crops = this.placedCams.map(
         (c, i) =>
           `[0:v]crop=${c.size}:${Math.floor(c.size * this.editor.ratio)}:${
@@ -61,6 +60,7 @@ export default {
       const camsTimes =
         (cutCams.start ? `-ss ${cutCams.start}` : "") +
         (cutCams.end ? ` -to ${cutCams.end}` : "");
+      const inputs = `${camsTimes} -i "${this.editor.filename}" ${mainTimes} -i "${this.placer.filename}" -i "${this.settings.overlay.filename}" ${introIn}`;
       return `ffmpeg ${inputs}
           -filter_complex "${crops.join(";")};${placements.join(";")};[tmp${
         this.placedCams.length

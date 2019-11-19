@@ -48,6 +48,8 @@
       "cams": "Players' cameras"
     },
     "intro": {
+      "title": "Insert intro",
+      "subtitle": "Check the checkbox if you want to insert intro video at the beginning",
       "enable": "Insert intro",
       "filename": "Intro filename"
     },

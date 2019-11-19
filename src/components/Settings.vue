@@ -88,12 +88,16 @@
             </div>
           </div>
         </article>
-        <article class="tile is-child">
+        <article class="tile is-child"></article>
+        <article class="tile is-child"></article>
+      </div>
+      <div class="tile is-parent is-vertical">
+        <article class="tile is-child box">
           <p class="title">{{ $t("settings.intro.title") }}</p>
           <p class="subtitle">{{ $t("settings.intro.subtitle") }}</p>
           <div class="field">
             <label class="checkbox">
-              <input type="checkbox" v-model="settings.into.enable" />
+              <input type="checkbox" v-model="settings.intro.enable" />
               {{ $t("settings.intro.enable") }}
             </label>
           </div>
@@ -108,9 +112,6 @@
             </div>
           </div>
         </article>
-        <article class="tile is-child"></article>
-      </div>
-      <div class="tile is-parent is-vertical">
         <article class="tile is-child box">
           <p class="title">{{ $t("settings.cut.title") }}</p>
           <p class="subtitle">{{ $t("settings.cut.subtitle") }}</p>

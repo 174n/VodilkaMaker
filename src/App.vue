@@ -121,11 +121,11 @@ export default {
           subtitle: "placer.subtitle",
           component: CameraPlacer
         },
-        {
-          title: "videoTime.title",
-          subtitle: "videoTime.subtitle",
-          component: VideoTimeCalibration
-        },
+        // {
+        //   title: "videoTime.title",
+        //   subtitle: "videoTime.subtitle",
+        //   component: VideoTimeCalibration
+        // },
         {
           title: "settings.title",
           subtitle: "settings.subtitle",
