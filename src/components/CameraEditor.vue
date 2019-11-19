@@ -47,9 +47,21 @@
                   <button class="button" @click="rmCam(i)">✖️</button>
                 </div>
                 <div class="inline">
-                  <input class="input" type="number" v-model="cam.x" />
-                  <input class="input" type="number" v-model="cam.y" />
-                  <input class="input" type="number" v-model="cam.size" />
+                  <input
+                    class="setting-input input"
+                    type="number"
+                    v-model="cam.x"
+                  />
+                  <input
+                    class="setting-input input"
+                    type="number"
+                    v-model="cam.y"
+                  />
+                  <input
+                    class="setting-input input"
+                    type="number"
+                    v-model="cam.size"
+                  />
                 </div>
               </div>
             </div>
@@ -104,5 +116,8 @@ export default {
     height: 24px;
     min-width: 24px;
   }
+}
+.setting-input {
+  width: 32%;
 }
 </style>
