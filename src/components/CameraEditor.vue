@@ -1,6 +1,6 @@
 <template>
   <div class="editor">
-    <div class="columns">
+    <div v-if="editor.image" class="columns">
       <div class="column is-two-thirds">
         <RegionCapturer
           :regions="editor.cams"
@@ -69,6 +69,7 @@
         </article>
       </div>
     </div>
+    <div v-else class="notification is-warning">{{ $t("editor.noImage") }}</div>
   </div>
 </template>
 

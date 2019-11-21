@@ -14,12 +14,12 @@
                       class="file-input"
                       ref="importFile"
                       type="file"
-                      accept=".json,application/json"
+                      accept=".json, application/json"
                     />
                     <span class="file-cta">
-                      <span class="file-label">{{
-                        $t("settings.importExport.importBtn")
-                      }}</span>
+                      <span class="file-label">
+                        {{ $t("settings.importExport.importBtn") }}
+                      </span>
                     </span>
                   </label>
                 </div>
@@ -60,6 +60,8 @@
             </div>
           </div>
         </article>
+        <article class="tile is-child"></article>
+        <article class="tile is-child"></article>
       </div>
       <div class="tile is-parent is-vertical">
         <article class="tile is-child box">
@@ -71,12 +73,8 @@
               <label class="file-label">
                 <input class="file-input" type="file" ref="overlayImage" />
                 <span class="file-cta">
-                  <span class="file-icon">
-                    📁
-                  </span>
-                  <span class="file-label">
-                    {{ $t("chooseFile") }}
-                  </span>
+                  <span class="file-icon">📁</span>
+                  <span class="file-label">{{ $t("chooseFile") }}</span>
                 </span>
               </label>
               <img
@@ -88,7 +86,30 @@
             </div>
           </div>
         </article>
-        <article class="tile is-child"></article>
+        <article class="tile is-child box">
+          <p class="title">{{ $t("settings.editor.title") }}</p>
+          <p class="subtitle">{{ $t("settings.editor.subtitle") }}</p>
+          <div class="select-file">
+            <div class="file">
+              <label class="file-label">
+                <input
+                  class="file-input"
+                  type="file"
+                  accept="image/*"
+                  ref="imagefile"
+                />
+                <span class="file-cta">
+                  <span class="file-icon">📁</span>
+                  <span class="file-label">{{ $t("chooseFile") }}</span>
+                </span>
+              </label>
+            </div>
+            <code>
+              ffmpeg -i "{{ editor.filename }}" -ss 00:00:10 -vframes 1 out.png
+            </code>
+            <img ref="image" :src="editor.image" v-if="editor.image" />
+          </div>
+        </article>
         <article class="tile is-child"></article>
       </div>
       <div class="tile is-parent is-vertical">
@@ -205,13 +226,19 @@ export default {
       this.settings.overlay.image = null;
       const file = this.$refs.overlayImage.files[0];
       this.settings.overlay.image = await this.toBase64(file);
+    },
+    async setEditorImage() {
+      const file = this.$refs.imagefile.files[0];
+      this.editor.image = await this.toBase64(file);
     }
   },
   mounted() {
+    this.$refs.imagefile.addEventListener("change", this.setEditorImage);
     this.$refs.overlayImage.addEventListener("change", this.addOverlayImage);
     this.$refs.importFile.addEventListener("change", this.importSettings);
   },
   beforeDestroy() {
+    this.$refs.imagefile.removeEventListener("change", this.setEditorImage);
     this.$refs.overlayImage.removeEventListener("change", this.addOverlayImage);
     this.$refs.importFile.removeEventListener("change", this.importSettings);
   }
@@ -221,5 +248,9 @@ export default {
 .overlay {
   max-width: 100%;
   margin-top: 5px;
+}
+code {
+  margin: 15px 0;
+  display: block;
 }
 </style>

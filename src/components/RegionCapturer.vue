@@ -1,28 +1,6 @@
 <template>
   <div class="canvas" ref="canvas">
     <img ref="image" :src="editor.image" v-if="editor.image" />
-    <div class="select-file" v-else>
-      <div class="file">
-        <label class="file-label">
-          <input
-            class="file-input"
-            type="file"
-            accept="image/*"
-            ref="imagefile"
-          />
-          <span class="file-cta">
-            <span class="file-icon">
-              📁
-            </span>
-            <span class="file-label">
-              {{ $t("chooseFile") }}
-            </span>
-          </span>
-        </label>
-      </div>
-      {{ fileInstructions }}
-      <code>ffmpeg -i "{{ filename }}" -ss 00:00:10 -vframes 1 out.png</code>
-    </div>
     <div
       :class="['region', { grabbing: parseInt(activeRegion) === i }]"
       v-for="(reg, i) in regions"
@@ -47,8 +25,7 @@ export default {
   props: {
     regions: Array,
     ratio: Number,
-    filename: String,
-    fileInstructions: String
+    filename: String
   },
   computed: {
     editor() {
@@ -61,11 +38,6 @@ export default {
     };
   },
   mounted() {
-    this.$refs.imagefile.addEventListener("change", async () => {
-      const file = this.$refs.imagefile.files[0];
-      this.editor.image = await this.toBase64(file);
-    });
-
     this.$refs.canvas.addEventListener("mouseup", () => {
       this.activeRegion = false;
     });
@@ -111,7 +83,7 @@ export default {
 .canvas {
   position: relative;
   width: 100%;
-  height: 500px;
+  height: 560px;
   overflow: auto;
   box-shadow: 0px 0px 13px rgba(0, 0, 0, 0.5);
   img {

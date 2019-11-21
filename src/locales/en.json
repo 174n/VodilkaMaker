@@ -11,7 +11,8 @@
     "addCamera": "Add camera",
     "cam": "cam",
     "filename": "Players' cameras footage",
-    "ratio": "Camera aspect ratio"
+    "ratio": "Camera aspect ratio",
+    "noImage": "Set cameras image in the settings"
   },
   "placer": {
     "title": "Final cameras placement",
@@ -56,6 +57,10 @@
     "filenames": {
       "title": "Set filenames",
       "subtitle": "Set all the filenames here"
+    },
+    "editor": {
+      "title": "Set cameras image",
+      "subtitle": "Yeah, that's right"
     }
   },
   "code": {
