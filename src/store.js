@@ -58,6 +58,7 @@ export default new Vuex.Store({
         x,
         y,
         size,
+        order: state.editor.cams.length,
         color: color || globalMixin.methods.getRandomColor(),
         listener: false
       });
@@ -83,23 +84,25 @@ export default new Vuex.Store({
       const innerPadding =
         (state.placer.canvHeight - lscc * height - 2 * state.placer.padding) /
         (lscc - 1);
-      return state.editor.cams.map((c, i) => {
-        c.t_width = `${width}px`;
-        c.t_height = `${height}px`;
-        c.t_x = `${
-          i >= lscc
-            ? state.placer.canvWidth - width - state.placer.padding
-            : state.placer.padding
-        }px`;
-        c.t_y = `${
-          i >= lscc
-            ? (i - lscc) * height +
-              innerPadding * (i - lscc) +
-              state.placer.padding
-            : i * height + innerPadding * i + state.placer.padding
-        }px`;
-        return c;
-      });
+      return state.editor.cams
+        .sort((a, b) => a.order - b.order)
+        .map((c, i) => {
+          c.t_width = `${width}px`;
+          c.t_height = `${height}px`;
+          c.t_x = `${
+            i >= lscc
+              ? state.placer.canvWidth - width - state.placer.padding
+              : state.placer.padding
+          }px`;
+          c.t_y = `${
+            i >= lscc
+              ? (i - lscc) * height +
+                innerPadding * (i - lscc) +
+                state.placer.padding
+              : i * height + innerPadding * i + state.placer.padding
+          }px`;
+          return c;
+        });
     },
     exportState: state => {
       return JSON.stringify(state, null, 2);

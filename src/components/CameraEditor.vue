@@ -47,6 +47,12 @@
                   <button class="button" @click="rmCam(i)">✖️</button>
                 </div>
                 <div class="inline">
+                  <!-- <span class="order">{{ i }}</span> -->
+                  <input
+                    class="setting-input input"
+                    type="number"
+                    v-model="cam.order"
+                  />
                   <input
                     class="setting-input input"
                     type="number"
@@ -120,5 +126,16 @@ export default {
 }
 .setting-input {
   width: 32%;
+}
+
+.order {
+  border-radius: 2px;
+  min-width: 35px;
+  text-align: center;
+  background-color: #ccc;
+  border-radius: 3px;
+  padding: 5px;
+  font-size: 1.1em;
+  font-weight: 600;
 }
 </style>

@@ -32,7 +32,9 @@
                 left: cam.t_x,
                 top: cam.t_y
               }"
-            ></div>
+            >
+              {{ cam.title }}
+            </div>
           </div>
         </div>
       </div>
@@ -173,6 +175,11 @@ export default {
   .cam {
     background-color: #ccc;
     position: absolute;
+    font-size: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
   }
   .overlay {
     position: absolute;
