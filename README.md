@@ -1,14 +1,14 @@
 # VodilkaMaker
 
-[![HitCount](http://hits.dwyl.io/Rundik/VodilkaMaker.svg)](http://hits.dwyl.io/Rundik/VodilkaMaker)
-[![GitHub stars](https://img.shields.io/github/stars/Rundik/VodilkaMaker.svg?style=flat-square)](https://github.com/Rundik/VodilkaMaker/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/Rundik/VodilkaMaker.svg?style=flat-square)](https://github.com/Rundik/VodilkaMaker/issues)
-[![Known Vulnerabilities](https://snyk.io/test/github/Rundik/VodilkaMaker/badge.svg?style=flat-square)](https://snyk.io/test/github/Rundik/VodilkaMaker)
-[![Dependencies](https://img.shields.io/david/Rundik/VodilkaMaker?style=flat-square)](https://github.com/Rundik/VodilkaMaker/blob/master/package.json)
+[![HitCount](http://hits.dwyl.io/174n/VodilkaMaker.svg)](http://hits.dwyl.io/174n/VodilkaMaker)
+[![GitHub stars](https://img.shields.io/github/stars/174n/VodilkaMaker.svg?style=flat-square)](https://github.com/174n/VodilkaMaker/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/174n/VodilkaMaker.svg?style=flat-square)](https://github.com/174n/VodilkaMaker/issues)
+[![Known Vulnerabilities](https://snyk.io/test/github/174n/VodilkaMaker/badge.svg?style=flat-square)](https://snyk.io/test/github/174n/VodilkaMaker)
+[![Dependencies](https://img.shields.io/david/174n/VodilkaMaker?style=flat-square)](https://github.com/174n/VodilkaMaker/blob/master/package.json)
 
 Create complete vodilka from your screen recordings
 
-[DEMO](https://rundik.github.io/VodilkaMaker/)
+[DEMO](https://174n.github.io/VodilkaMaker/)
 
 ![Demo gif](demo.gif)
 
