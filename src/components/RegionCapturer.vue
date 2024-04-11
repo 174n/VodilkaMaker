@@ -64,7 +64,7 @@ export default {
   watch: {
     regions() {
       this.$nextTick(() => {
-        const elem = this.$refs.regions.slice(-1)[0];
+        const elem = this.$refs.regions?.slice(-1)?.[0];
         if (elem) {
           elem.addEventListener("mousedown", e => {
             const reg = this.regions[e.target.getAttribute("data-id")];

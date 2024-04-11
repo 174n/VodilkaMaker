@@ -7,8 +7,6 @@ import "bulma";
 
 import globalMixin from "./globalMixin";
 
-import vueSmoothScroll from "vue2-smooth-scroll";
-Vue.use(vueSmoothScroll);
 import * as VueDeepSet from "vue-deepset";
 Vue.use(VueDeepSet);
 

@@ -78,12 +78,22 @@
               </div>
             </div>
             <div class="field">
-              <label class="label">{{ $t("placer.padding") }}</label>
+              <label class="label">{{ $t("placer.paddingX") }}</label>
               <div class="control inline">
                 <input
                   class="input"
                   type="number"
-                  v-model.number="placer.padding"
+                  v-model.number="placer.paddingX"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">{{ $t("placer.paddingY") }}</label>
+              <div class="control inline">
+                <input
+                  class="input"
+                  type="number"
+                  v-model.number="placer.paddingY"
                 />
               </div>
             </div>
@@ -98,9 +108,10 @@
 </template>
 
 <script>
-import { EventBus } from "@/event-bus";
+import emitter from "@/event-bus";
 
 export default {
+  name: "CameraPlacer",
   computed: {
     editor() {
       return this.$store.state.editor;
@@ -120,22 +131,22 @@ export default {
       const width = this.placer.size;
       const height = this.placer.size * this.editor.ratio;
       const innerPadding =
-        (this.placer.canvHeight - lscc * height - 2 * this.placer.padding) /
+        (this.placer.canvHeight - lscc * height - 2 * this.placer.paddingY) /
         (lscc - 1);
       return cams.map((c, i) => {
         c.t_width = `${width}px`;
         c.t_height = `${height}px`;
         c.t_x = `${
           i >= lscc
-            ? this.placer.canvWidth - width - this.placer.padding
-            : this.placer.padding
+            ? this.placer.canvWidth - width - this.placer.paddingX
+            : this.placer.paddingX
         }px`;
         c.t_y = `${
           i >= lscc
             ? (i - lscc) * height +
               innerPadding * (i - lscc) +
-              this.placer.padding
-            : i * height + innerPadding * i + this.placer.padding
+              this.placer.paddingY
+            : i * height + innerPadding * i + this.placer.paddingY
         }px`;
         return c;
       });
@@ -151,12 +162,12 @@ export default {
   },
   mounted() {
     this.setCanvasScale();
-    EventBus.$on("tab-changed", this.setCanvasScale);
+    emitter.on("tab-changed", this.setCanvasScale);
     window.addEventListener("resize", this.setCanvasScale);
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.setCanvasScale);
-    EventBus.$off("tab-changed", this.setCanvasScale);
+    emitter.off("tab-changed", this.setCanvasScale);
   }
 };
 </script>
@@ -164,8 +175,7 @@ export default {
 <style scoped lang="scss">
 .canvas-wrapper {
   width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 .canvas {
   background-color: #333;

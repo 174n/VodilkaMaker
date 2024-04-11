@@ -36,6 +36,13 @@ export default new Vuex.Store({
     },
     editor: {
       cams: [],
+      main: {
+        enable: false,
+        width: 1280,
+        height: 720,
+        x: 0,
+        y: 0
+      },
       filename: "filename.mp4",
       image: false,
       ratio: 0.7
@@ -46,7 +53,8 @@ export default new Vuex.Store({
       canvHeight: 1080,
       canvasScale: 0.1,
       size: 400,
-      padding: 60
+      paddingX: 60,
+      paddingY: 60
     }
   },
 
@@ -82,8 +90,8 @@ export default new Vuex.Store({
       const width = state.placer.size;
       const height = state.placer.size * state.editor.ratio;
       const innerPadding =
-        (state.placer.canvHeight - lscc * height - 2 * state.placer.padding) /
-        (lscc - 1);
+        (state.placer.canvHeight - lscc * height - 2 * state.placer.paddingY) /
+        ((lscc === 1 ? 2 : lscc) - 1);
       return state.editor.cams
         .sort((a, b) => a.order - b.order)
         .map((c, i) => {
@@ -91,15 +99,15 @@ export default new Vuex.Store({
           c.t_height = `${height}px`;
           c.t_x = `${
             i >= lscc
-              ? state.placer.canvWidth - width - state.placer.padding
-              : state.placer.padding
+              ? state.placer.canvWidth - width - state.placer.paddingX
+              : state.placer.paddingX
           }px`;
           c.t_y = `${
             i >= lscc
               ? (i - lscc) * height +
                 innerPadding * (i - lscc) +
-                state.placer.padding
-              : i * height + innerPadding * i + state.placer.padding
+                state.placer.paddingY
+              : i * height + innerPadding * i + state.placer.paddingY
           }px`;
           return c;
         });

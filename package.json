@@ -1,6 +1,6 @@
 {
   "name": "vodilka-maker",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -8,26 +8,16 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "bulma": "^0.8.0",
-    "core-js": "^3.3.2",
-    "vue": "^2.6.10",
+    "bulma": "^1.0.0",
+    "mitt": "^3.0.1",
+    "vue": "^2.7.16",
     "vue-deepset": "^0.6.3",
     "vue-i18n": "^8.15.0",
-    "vue2-smooth-scroll": "^1.1.1",
-    "vuex": "^3.1.2"
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.0.0",
-    "@vue/cli-plugin-eslint": "^4.0.0",
-    "@vue/cli-service": "^4.0.0",
-    "@vue/eslint-config-prettier": "^5.0.0",
-    "babel-eslint": "^10.0.3",
-    "eslint": "^5.16.0",
-    "eslint-plugin-prettier": "^3.1.1",
-    "eslint-plugin-vue": "^5.0.0",
-    "prettier": "^1.18.2",
-    "sass": "^1.19.0",
-    "sass-loader": "^8.0.0",
-    "vue-template-compiler": "^2.6.10"
+    "@vue/cli-service": "^5.0.8",
+    "sass": "^1.74.1",
+    "sass-loader": "^14.1.1"
   }
 }

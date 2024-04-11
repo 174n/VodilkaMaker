@@ -1,8 +1,8 @@
 <template>
   <div class="settings">
-    <div class="tile is-ancestor">
-      <div class="tile is-parent is-vertical is-3">
-        <article class="tile is-child box">
+    <div class="grid is-gap-3">
+      <div class="cell">
+        <article class="box">
           <p class="title">{{ $t("settings.importExport.title") }}</p>
           <p class="subtitle">{{ $t("settings.importExport.subtitle") }}</p>
           <div class="content">
@@ -32,7 +32,7 @@
             </nav>
           </div>
         </article>
-        <article class="tile is-child box">
+        <article class="box">
           <p class="title">{{ $t("settings.filenames.title") }}</p>
           <p class="subtitle">{{ $t("settings.filenames.subtitle") }}</p>
           <div class="content">
@@ -42,7 +42,7 @@
                 <input class="input" type="text" v-model="editor.filename" />
               </div>
             </div>
-            <div class="field">
+            <div class="field" v-if="!editor.main.enable">
               <label class="label">{{ $t("placer.filename") }}</label>
               <div class="control inline">
                 <input class="input" type="text" v-model="placer.filename" />
@@ -60,11 +60,9 @@
             </div>
           </div>
         </article>
-        <article class="tile is-child"></article>
-        <article class="tile is-child"></article>
       </div>
-      <div class="tile is-parent is-vertical">
-        <article class="tile is-child box">
+      <div class="cell is-vertical">
+        <article class="box">
           <p class="title">{{ $t("settings.overlay.title") }}</p>
           <p class="subtitle">{{ $t("settings.overlay.subtitle") }}</p>
           <div class="content">
@@ -86,7 +84,7 @@
             </div>
           </div>
         </article>
-        <article class="tile is-child box">
+        <article class="box">
           <p class="title">{{ $t("settings.editor.title") }}</p>
           <p class="subtitle">{{ $t("settings.editor.subtitle") }}</p>
           <div class="select-file">
@@ -110,10 +108,9 @@
             <img ref="image" :src="editor.image" v-if="editor.image" />
           </div>
         </article>
-        <article class="tile is-child"></article>
       </div>
-      <div class="tile is-parent is-vertical">
-        <article class="tile is-child box">
+      <div class="cell">
+        <article class="box">
           <p class="title">{{ $t("settings.intro.title") }}</p>
           <p class="subtitle">{{ $t("settings.intro.subtitle") }}</p>
           <div class="field">
@@ -133,7 +130,7 @@
             </div>
           </div>
         </article>
-        <article class="tile is-child box">
+        <article class="box">
           <p class="title">{{ $t("settings.cut.title") }}</p>
           <p class="subtitle">{{ $t("settings.cut.subtitle") }}</p>
           <div class="content">
@@ -181,7 +178,6 @@
             </div>
           </div>
         </article>
-        <article class="tile is-child"></article>
       </div>
     </div>
   </div>

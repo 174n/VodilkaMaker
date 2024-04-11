@@ -12,14 +12,22 @@
     "cam": "cam",
     "filename": "Players' cameras footage",
     "ratio": "Camera aspect ratio",
-    "noImage": "Set cameras image in the settings"
+    "noImage": "Set cameras image in the settings",
+    "main": {
+      "title": "Main window",
+      "subtitle": "Main window in the same footage",
+      "enable": "Enable",
+      "width": "Width",
+      "height": "Height"
+    }
   },
   "placer": {
     "title": "Final cameras placement",
     "subtitle": "Choose the locations for the cameras to be placed",
     "settings": "Settings",
     "camSize": "Cam size",
-    "padding": "Padding",
+    "paddingX": "Horizontal padding",
+    "paddingY": "Vertical padding",
     "canvWidth": "Canvas width",
     "canvHeight": "Canvas height",
     "filename": "Main camera filename",

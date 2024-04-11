@@ -55,7 +55,7 @@
                 :key="i"
                 :class="{ 'is-active': active === i }"
               >
-                <a @click="changeTab(i)" v-smooth-scroll>{{ $t(tab.title) }}</a>
+                <a @click="changeTab(i)">{{ $t(tab.title) }}</a>
               </li>
             </ul>
           </div>
@@ -91,13 +91,13 @@
 </template>
 
 <script>
-import { EventBus } from "@/event-bus.js";
 import CameraEditor from "@/components/CameraEditor";
 import CameraPlacer from "@/components/CameraPlacer";
 import Settings from "@/components/Settings";
 import CodeGenerator from "@/components/CodeGenerator";
 import VideoTimeCalibration from "@/components/VideoTimeCalibration";
 import "@/styles/flags.css";
+import emitter from "./event-bus";
 
 export default {
   name: "app",
@@ -140,11 +140,6 @@ export default {
       active: 0,
       badges: [
         {
-          img: "http://hits.dwyl.io/174n/VodilkaMaker.svg",
-          link: "https://github.com/174n/VodilkaMaker",
-          alt: "HitCount"
-        },
-        {
           img:
             "https://img.shields.io/github/stars/174n/VodilkaMaker.svg?style=flat-square",
           link: "https://github.com/174n/VodilkaMaker/stargazers",
@@ -161,13 +156,6 @@ export default {
             "https://snyk.io/test/github/174n/VodilkaMaker/badge.svg?style=flat-square",
           link: "https://snyk.io/test/github/174n/VodilkaMaker",
           alt: "Known Vulnerabilities"
-        },
-        {
-          img:
-            "https://img.shields.io/david/174n/VodilkaMaker?style=flat-square",
-          link:
-            "https://github.com/174n/VodilkaMaker/blob/master/package.json",
-          alt: "Dependencies"
         }
       ]
     };
@@ -177,7 +165,7 @@ export default {
       this.$i18n.locale = locale;
     },
     changeTab(i) {
-      EventBus.$emit("tab-changed");
+      emitter.emit("tab-changed");
       this.active = i;
     }
   },

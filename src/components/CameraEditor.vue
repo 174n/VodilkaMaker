@@ -73,6 +73,45 @@
             </div>
           </div>
         </article>
+
+        <article class="message" v-if="false">
+          <div class="message-header">
+            <p>{{ $t("editor.main.title") }}</p>
+          </div>
+          <div class="message-body">
+            <div class="field">
+              <label class="label">{{ $t("editor.main.title") }}</label>
+              <div class="control inline">
+                <label class="checkbox">
+                  <input type="checkbox" v-model="editor.main.enable" />
+                  {{ $t("editor.main.enable") }}
+                </label>
+              </div>
+            </div>
+            <div class="field" v-if="editor.main.enable">
+              <label class="label">{{ $t("editor.main.width") }}</label>
+              <div class="control inline">
+                <input
+                  class="input"
+                  type="number"
+                  step="0.1"
+                  v-model.number="editor.main.width"
+                />
+              </div>
+            </div>
+            <div class="field" v-if="editor.main.enable">
+              <label class="label">{{ $t("editor.main.height") }}</label>
+              <div class="control inline">
+                <input
+                  class="input"
+                  type="number"
+                  step="0.1"
+                  v-model.number="editor.main.height"
+                />
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
     <div v-else class="notification is-warning">{{ $t("editor.noImage") }}</div>
